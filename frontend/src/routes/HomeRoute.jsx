@@ -5,11 +5,10 @@ import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
 
-
-const HomeRoute = ({photos}) => {
+const HomeRoute = ({photos, topics}) => {
   return (
     <div className="home-route">
-      <TopNavigation />
+      <TopNavigation topics = {topics}/>
       <PhotoList photoList = {photos}/>
     </div>
   );
