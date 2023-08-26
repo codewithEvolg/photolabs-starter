@@ -6,11 +6,11 @@ import TopNavigation from 'components/TopNavigationBar';
 
 
 
-const HomeRoute = ({sampleDataForPhotoList}) => {
+const HomeRoute = ({photos}) => {
   return (
     <div className="home-route">
       <TopNavigation />
-      <PhotoList photoList = {sampleDataForPhotoList}/>
+      <PhotoList photoList = {photos}/>
     </div>
   );
 };
