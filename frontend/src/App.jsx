@@ -61,7 +61,6 @@ const App = () => {
   return (
     <div className="App">
       <PhotoList photoList = {sampleDataForPhotoList}/>
-      {/* <PhotoList /> */}
     </div>
   );
 };

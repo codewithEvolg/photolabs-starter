@@ -4,7 +4,6 @@ import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = ({photoList}) => {
-  console.log(photoList);
   return (
     <ul className='photo-list'>
       {photoList.map((photo) => (

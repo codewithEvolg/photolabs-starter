@@ -18,8 +18,8 @@
 .photo-list__image {
   border-radius: 8px 8px 0px 0px;
   user-select: none;
-  width: 300px;
-  height: 200px;
+  width: 400px;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -28,12 +28,15 @@
   border-radius: 100%;
   vertical-align: middle;
   margin-right: 8px;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
 }
 
 .photo-list__user-details {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.3em;
 }
 
 .photo-list__user-info {
@@ -41,6 +44,8 @@
   font-weight: 700;
   font-size: 12px;
   margin-left: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .photo-list__user-location {
