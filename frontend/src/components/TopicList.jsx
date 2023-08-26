@@ -2,6 +2,7 @@ import React from "react";
 
 import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
+import TopNavigation from "./TopNavigationBar";
 
 const sampleDataForTopicList = [
   {
@@ -21,21 +22,21 @@ const sampleDataForTopicList = [
   },
 ];
 
+const getTopics = () => {
+  return (
+    <div className="top-nav-bar__topic-list">
+      {sampleDataForTopicList.map((topic) => (
+        <TopicListItem
+          key={topic.id}
+          label={topic.title}
+        />
+      ))}
+    </div>);
+};
+
 const TopicList = () => {
   return (
-    <div className="top-nav-bar__menu">
-      <h2>PhotoLab</h2>
-      <div className="top-nav-bar__topic-list">
-        {sampleDataForTopicList.map((topic) => (
-          <div key={topic.id}>
-            <TopicListItem
-              key={topic.id}
-              label={topic.title}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+    <TopNavigation topics = {getTopics()}/>
   );
 };
 
