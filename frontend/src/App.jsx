@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.scss';
-import PhotoList from 'components/PhotoList';
-import TopicList from 'components/TopicList';
+import HomeRoute from 'routes/HomeRoute';
 
 const sampleDataForPhotoList = [
   {
@@ -61,8 +60,7 @@ const sampleDataForPhotoList = [
 const App = () => {
   return (
     <div className="App">
-      <TopicList />
-      <PhotoList photoList = {sampleDataForPhotoList}/>
+      <HomeRoute sampleDataForPhotoList = {sampleDataForPhotoList}/>
     </div>
   );
 };

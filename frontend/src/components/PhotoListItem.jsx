@@ -3,9 +3,7 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 import FavIcon from "./FavIcon";
 
-const PhotoListItem = (props) => {
-  const {imageSource, profile, username, city, country} = props;
-  /* Insert React */
+const PhotoListItem = ({imageSource, profile, username, city, country}) => {
   return (
     <div className='photo-list__item'>
       <img className='photo-list__image' src={imageSource} alt='sample image'/>

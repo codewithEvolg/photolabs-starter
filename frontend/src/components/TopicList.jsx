@@ -2,7 +2,6 @@ import React from "react";
 
 import "../styles/TopicList.scss";
 import TopicListItem from "./TopicListItem";
-import TopNavigation from "./TopNavigationBar";
 
 const sampleDataForTopicList = [
   {
@@ -22,7 +21,8 @@ const sampleDataForTopicList = [
   },
 ];
 
-const getTopics = () => {
+
+const TopicList = () => {
   return (
     <div className="top-nav-bar__topic-list">
       {sampleDataForTopicList.map((topic) => (
@@ -31,12 +31,7 @@ const getTopics = () => {
           label={topic.title}
         />
       ))}
-    </div>);
-};
-
-const TopicList = () => {
-  return (
-    <TopNavigation topics = {getTopics()}/>
+    </div>
   );
 };
 
