@@ -6,9 +6,10 @@ import topics from 'mocks/topics';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
+ 
   return (
     <div className="App">
-      <HomeRoute photos = {photos} topics = {topics}/>
+      <HomeRoute photos = {photos} topics = {topics} />
     </div>
   );
 };
