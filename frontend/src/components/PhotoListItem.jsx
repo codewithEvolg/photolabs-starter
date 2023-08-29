@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
 
-const PhotoListItem = ({ id, imageSource, profile, username, city, country, favourites, setFavourites }) => {
+const PhotoListItem = ({ id, imageSource, profile, username, city, country, favourites, setFavourites, isDisplayModal }) => {
 
   const isFavorited = favourites.includes(id); // is this photoItem in favourite array?
 
@@ -15,7 +15,7 @@ const PhotoListItem = ({ id, imageSource, profile, username, city, country, favo
   };
 
   return (
-    <div className='photo-list__item'>
+    <div className='photo-list__item' onClick={isDisplayModal}>
       <PhotoFavButton selected={isFavorited} onClick={toggleSelect} />
       <img className='photo-list__image' src={imageSource} alt='sample image' />
       <div className="photo-list__user-details">
