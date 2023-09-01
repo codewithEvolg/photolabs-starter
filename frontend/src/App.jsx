@@ -18,6 +18,16 @@ const App = () => {
     return foundPhoto;
   };
 
+  const isFavorited = state.favourites.includes(state.selectedPhotoId);
+
+  const toggleModalSelect = () => {
+    const newFavouritesArray = isFavorited
+      ? state.favourites.filter(item => item !== state.selectedPhotoId)
+      : [...state.favourites, state.selectedPhotoId];
+
+    setState({...state, favourites: newFavouritesArray});
+  };
+
   return (
     <div className="App">
       <HomeRoute
@@ -31,6 +41,7 @@ const App = () => {
         setState = {setState}
         state = {state}
         modalPhotoInfo = {getSelectedPhotoInfo() ? getSelectedPhotoInfo() : null}
+        toggleModalSelect = {toggleModalSelect}
       />
     </div>
   );

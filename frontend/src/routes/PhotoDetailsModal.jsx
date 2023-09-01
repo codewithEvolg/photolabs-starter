@@ -2,14 +2,16 @@ import React from 'react';
 
 import '../styles/PhotoDetailsModal.scss';
 import closeSymbol from '../assets/closeSymbol.svg';
+import PhotoList from 'components/PhotoList';
+import PhotoFavButton from 'components/PhotoFavButton';
 
-const PhotoDetailsModal = ({modalPhotoInfo, state, setState}) => {
+const PhotoDetailsModal = ({modalPhotoInfo, state, setState, toggleModalSelect}) => {
   const handleCloseClick = () => {
     setState({...state, displayModal: false, selectedPhotoId : 0});
   };
   //retrieve the first photo in the photo array
-  // const simPhoto = modalPhotoInfo?.similarPhotos || [];
-  // console.log('main photo:',Object.values(simPhoto));
+  const simPhoto = modalPhotoInfo?.similarPhotos || [];
+  const similarPhotoArray = simPhoto ? Object.keys(simPhoto).map((key)=>simPhoto[key]) : [];
 
   return (
     <div>
@@ -21,23 +23,24 @@ const PhotoDetailsModal = ({modalPhotoInfo, state, setState}) => {
           {/* Modal content */}
           <div className='photo-details-modal__images'>
             <div className='photo-details-modal__image-container'>
+              <span>
+                <PhotoFavButton selected = {state.favourites.includes(modalPhotoInfo.id)}
+                  onClick = {toggleModalSelect}
+                />
+              </span>
               <img
                 className='photo-details-modal__image'
                 src={modalPhotoInfo?.urls.full}
                 alt='photo-image'
               />
             </div>
-            {/* <h4 className='photo-details-modal__header'>Similar Photos</h4>
+            <h4 className='photo-details-modal__header'>Similar Photos</h4>
             <PhotoList
               className='photo-details-modal--images'
-              photos={Object.values(simPhoto)}
-              // setState={setState}
-              // state={state}
-              //favorites={favorites}
-              // toggleFavorite={toggleFavorite}
-              // clickedPhoto={clickedPhoto}
-              // expandModal={expandModal}
-            /> */}
+              photoList={similarPhotoArray}
+              setState={setState}
+              state={state}
+            />
           </div>
         </div>
         :
