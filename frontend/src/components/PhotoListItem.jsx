@@ -9,18 +9,18 @@ const PhotoListItem = ({
   username,
   city,
   country,
-  favourites,
-  setFavourites,
   isDisplayModal,
+  state,
+  setState
 }) => {
-  const isFavorited = favourites.includes(id);
+  const isFavorited = state.favourites.includes(id);
 
   const toggleSelect = () => {
     const newFavouritesArray = isFavorited
-      ? favourites.filter(item => item !== id)
-      : [...favourites, id];
+      ? state.favourites.filter(item => item !== id)
+      : [...state.favourites, id];
 
-    setFavourites(newFavouritesArray);
+    setState({...state, favourites: newFavouritesArray});
   };
 
   const handleImageClick = () => {

@@ -2,10 +2,9 @@ import React from "react";
 import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
-const PhotoList = ({ photoList, favourites, setFavourites, setDisplayModal, setSelectedPhotoId }) => {
+const PhotoList = ({ photoList, setState, state }) => {
   const isDisplayModal = (id) =>{
-    setDisplayModal(true);
-    setSelectedPhotoId(id);
+    setState({...state, displayModal: true, selectedPhotoId : id});
   };
 
   return (
@@ -19,8 +18,8 @@ const PhotoList = ({ photoList, favourites, setFavourites, setDisplayModal, setS
           username={photo.user.name}
           city={photo.location.city}
           country={photo.location.country}
-          favourites={favourites}
-          setFavourites={setFavourites}
+          state = {state}
+          setState = {setState}
           isDisplayModal={isDisplayModal}// Pass the photo id here
         />
       ))}

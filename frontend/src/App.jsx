@@ -7,12 +7,15 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const [favourites, setFavourites] = useState([]);
-  const [displayModal, setDisplayModal] = useState(false);
-  const [selectedPhotoId, setSelectedPhotoId] = useState(0);
+  const [state, setState] = useState({
+    favourites : [],
+    displayModal : false,
+    selectedPhotoId : 0
+  });
   
   const getSelectedPhotoInfo = () => {
-    return photos.find(photo => photo.id === selectedPhotoId); //find selected photo object with PhotoId
+    const foundPhoto = photos.find(photo => photo.id === state.selectedPhotoId); //find selected photo object with PhotoId
+    return foundPhoto;
   };
 
   return (
@@ -20,15 +23,13 @@ const App = () => {
       <HomeRoute
         photos = {photos}
         topics = {topics}
-        setDisplayModal = {setDisplayModal}
-        favourites = {favourites}
-        setFavourites = {setFavourites}
-        setSelectedPhotoId = {setSelectedPhotoId}
+        favourites = {state.favourites}
+        setState = {setState}
+        state = {state}
       />
       <PhotoDetailsModal
-        displayModal = {displayModal}
-        setDisplayModal = {setDisplayModal}
-        setSelectedPhotoId = {setSelectedPhotoId}
+        setState = {setState}
+        state = {state}
         modalPhotoInfo = {getSelectedPhotoInfo() ? getSelectedPhotoInfo() : null}
       />
     </div>

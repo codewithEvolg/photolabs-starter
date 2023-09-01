@@ -4,16 +4,15 @@ import '../styles/HomeRoute.scss';
 import PhotoList from 'components/PhotoList';
 import TopNavigation from 'components/TopNavigationBar';
 
-const HomeRoute = ({photos, topics, setDisplayModal,favourites, setFavourites, setSelectedPhotoId }) => {
+const HomeRoute = ({photos, topics,favourites, setState, state }) => {
   
   return (
     <div className="home-route">
       <TopNavigation topics = {topics} isFavPhotoExist = {favourites.length > 0 ? true : false}/>
       <PhotoList photoList = {photos}
         favourites = {favourites}
-        setFavourites = {setFavourites}
-        setDisplayModal = {setDisplayModal}
-        setSelectedPhotoId = {setSelectedPhotoId}
+        setState = {setState}
+        state = {state}
       />
     </div>
   );
