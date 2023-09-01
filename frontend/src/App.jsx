@@ -9,7 +9,7 @@ import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 const App = () => {
   const [state, setState] = useState({
     favourites : [],
-    displayModal : false,
+    isDisplayModal : false,
     selectedPhotoId : 0
   });
   
@@ -18,15 +18,35 @@ const App = () => {
     return foundPhoto;
   };
 
-  const isFavorited = state.favourites.includes(state.selectedPhotoId);
+  const isFavorited = (id) => {
+    return state.favourites.includes(id);
+  };
 
   const toggleModalSelect = () => {
-    const newFavouritesArray = isFavorited
+    const newFavouritesArray = isFavorited(state.selectedPhotoId)
       ? state.favourites.filter(item => item !== state.selectedPhotoId)
       : [...state.favourites, state.selectedPhotoId];
 
     setState({...state, favourites: newFavouritesArray});
   };
+
+  const handleCloseClick = () => {
+    setState({...state, isDisplayModal: false, selectedPhotoId : 0});
+  };
+
+  const handleDisplayModal = (id) =>{
+    setState({...state, isDisplayModal: true, selectedPhotoId : id});
+  };
+
+  const toggleFavourite = (id) => {
+    const newFavouritesArray = state.favourites.includes(id)
+      ? state.favourites.filter(item => item !== id)
+      : [...state.favourites, id];
+
+    setState({...state, favourites: newFavouritesArray});
+  };
+
+  
 
   return (
     <div className="App">
@@ -34,14 +54,17 @@ const App = () => {
         photos = {photos}
         topics = {topics}
         favourites = {state.favourites}
-        setState = {setState}
-        state = {state}
+        handleDisplayModal = {handleDisplayModal}
+        toggleFavourite ={toggleFavourite}
+        isFavorited = {isFavorited}
       />
       <PhotoDetailsModal
-        setState = {setState}
-        state = {state}
+        isDisplayModal = {state.isDisplayModal}
         modalPhotoInfo = {getSelectedPhotoInfo() ? getSelectedPhotoInfo() : null}
         toggleModalSelect = {toggleModalSelect}
+        handleCloseClick = {handleCloseClick}
+        isFavorited = {isFavorited}
+        toggleFavourite = {toggleFavourite}
       />
     </div>
   );

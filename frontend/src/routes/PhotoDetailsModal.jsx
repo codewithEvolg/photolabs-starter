@@ -5,17 +5,15 @@ import closeSymbol from '../assets/closeSymbol.svg';
 import PhotoList from 'components/PhotoList';
 import PhotoFavButton from 'components/PhotoFavButton';
 
-const PhotoDetailsModal = ({modalPhotoInfo, state, setState, toggleModalSelect}) => {
-  const handleCloseClick = () => {
-    setState({...state, displayModal: false, selectedPhotoId : 0});
-  };
+const PhotoDetailsModal = ({modalPhotoInfo, isDisplayModal, toggleModalSelect, handleCloseClick,toggleFavourite, isFavorited}) => {
+  
   //retrieve the first photo in the photo array
   const simPhoto = modalPhotoInfo?.similarPhotos || [];
   const similarPhotoArray = simPhoto ? Object.keys(simPhoto).map((key)=>simPhoto[key]) : [];
 
   return (
     <div>
-      { state.displayModal ?
+      { isDisplayModal ?
         <div className="photo-details-modal">
           <button className="photo-details-modal__close-button">
             <img src={closeSymbol} alt="close symbol" onClick={handleCloseClick} />
@@ -24,7 +22,7 @@ const PhotoDetailsModal = ({modalPhotoInfo, state, setState, toggleModalSelect})
           <div className='photo-details-modal__images'>
             <div className='photo-details-modal__image-container'>
               <span>
-                <PhotoFavButton selected = {state.favourites.includes(modalPhotoInfo.id)}
+                <PhotoFavButton selected = {isFavorited(modalPhotoInfo.id)}
                   onClick = {toggleModalSelect}
                 />
               </span>
@@ -38,8 +36,8 @@ const PhotoDetailsModal = ({modalPhotoInfo, state, setState, toggleModalSelect})
             <PhotoList
               className='photo-details-modal--images'
               photoList={similarPhotoArray}
-              setState={setState}
-              state={state}
+              toggleFavourite = {toggleFavourite}
+              isFavorited = {isFavorited}
             />
           </div>
         </div>
