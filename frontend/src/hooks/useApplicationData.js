@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import photoData from 'mocks/photos';
-import topicsData from 'mocks/topics';
+import topicData from 'mocks/topics';
+
+
+const initialState = {
+  favourites : [],
+  isDisplayModal : false,
+  selectedPhotoId : 0,
+  photos : photoData,
+  topics : topicData
+};
+
+/* insert app levels actions below */
+const reducer = (state, action) => {
+  switch (action.type) {
+  case "SET_FAVORITES":
+    return {...state, favourites: action.payload};
+  case "SET_IS_DISPLAY_MODAL_SET_SELECTED_PHOTO_ID":
+    return {...state, isDisplayModal: action.payload1, selectedPhotoId: action.payload2};
+  case "SET_PHOTO_DATA":
+    return {...state, photoData: action.payload};
+  case "SET_TOPIC_DATA":
+    return {...state, topicData: action.payload};
+  }
+};
+
 
 const useApplicationData = () => {
-  const [state, setState] = useState({
-    favourites : [],
-    isDisplayModal : false,
-    selectedPhotoId : 0,
-    photos : photoData,
-    topics : topicsData
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
   
   const getSelectedPhotoInfo = () => {
     const foundPhoto = state.photos.find(photo => photo.id === state.selectedPhotoId); //find selected photo object with PhotoId
@@ -25,15 +43,15 @@ const useApplicationData = () => {
       ? state.favourites.filter(item => item !== state.selectedPhotoId)
       : [...state.favourites, state.selectedPhotoId];
 
-    setState({...state, favourites: newFavouritesArray});
+    dispatch({type: "SET_FAVORITES", payload: newFavouritesArray});
   };
 
   const handleCloseClick = () => {
-    setState({...state, isDisplayModal: false, selectedPhotoId : 0});
+    dispatch({type:"SET_IS_DISPLAY_MODAL_SET_SELECTED_PHOTO_ID", payload1:false, payload2:0 });
   };
 
   const handleDisplayModal = (id) =>{
-    setState({...state, isDisplayModal: true, selectedPhotoId : id});
+    dispatch({type:"SET_IS_DISPLAY_MODAL_SET_SELECTED_PHOTO_ID", payload1:true, payload2:id });
   };
 
   const toggleFavourite = (id) => {
@@ -41,7 +59,8 @@ const useApplicationData = () => {
       ? state.favourites.filter(item => item !== id)
       : [...state.favourites, id];
 
-    setState({...state, favourites: newFavouritesArray});
+    dispatch({type:"SET_FAVORITES", payload: newFavouritesArray });
+
   };
 
   return {
