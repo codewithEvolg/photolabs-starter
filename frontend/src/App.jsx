@@ -13,7 +13,8 @@ const App = () => {
     toggleModalSelect,
     handleCloseClick,
     handleDisplayModal,
-    toggleFavourite
+    toggleFavourite,
+    getPhotosForTopic
   } = useApplicationData();
 
   return (
@@ -25,6 +26,7 @@ const App = () => {
         handleDisplayModal = {handleDisplayModal}
         toggleFavourite ={toggleFavourite}
         isFavorited = {isFavorited}
+        getPhotosForTopic = {getPhotosForTopic}
       />
       <PhotoDetailsModal
         isDisplayModal = {state.isDisplayModal}

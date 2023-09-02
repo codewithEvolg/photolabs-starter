@@ -3,10 +3,10 @@ import React from "react";
 import "../styles/TopicListItem.scss";
 
 
-const TopicListItem = ({label}) => {
+const TopicListItem = ({id, label, getPhotosForTopic}) => {
   return (
     <div className="topic-list__item">
-      <p>{label}</p>
+      <p onClick={() => getPhotosForTopic(id)}>{label}</p>
     </div>
   );
 };

@@ -1,14 +1,15 @@
-import { useReducer } from "react";
-import photoData from 'mocks/photos';
-import topicData from 'mocks/topics';
+import { useReducer, useEffect } from "react";
+//import topicData from "mocks/topics";
+//import photoData from "mocks/photos";
 
 
 const initialState = {
   favourites : [],
   isDisplayModal : false,
   selectedPhotoId : 0,
-  photos : photoData,
-  topics : topicData
+  photos : [],
+  topics : [],
+  selectedTopic: []
 };
 
 /* insert app levels actions below */
@@ -22,6 +23,10 @@ const reducer = (state, action) => {
     return {...state, photoData: action.payload};
   case "SET_TOPIC_DATA":
     return {...state, topicData: action.payload};
+  case "SET_SELECTED_TOPIC":
+    return { ...state, selectedTopic: action.payload };
+  default:
+    return state;
   }
 };
 
@@ -63,6 +68,46 @@ const useApplicationData = () => {
 
   };
 
+  const getPhotosForTopic = (topicID) => {
+    if (topicID === "logo") {
+      dispatch({ type: 'SET_SELECTED_TOPIC', payload: [] });
+    } else {
+      dispatch({ type: 'SET_SELECTED_TOPIC', payload: [topicID] });
+    }
+  };
+
+
+  useEffect(() => {
+    if (state.selectedTopic.length === 0) {
+      fetch(`/api/photos`)
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch({ type: 'SET_PHOTO_DATA', payload: data });
+        })
+        .catch((error) => {
+          console.error('An error occurred while fetching photos:', error);
+        });
+    } else {
+      fetch(`/api/topics/photos/${state.selectedTopic[0]}/`)
+        .then((response) => response.json())
+        .then((data) => {
+          dispatch({ type: 'SET_PHOTO_DATA', payload: data });
+        })
+        .catch((error) => {
+          console.error('An error occurred while fetching photos for topic:', error);
+        });
+    }
+  }, [state.selectedTopic]);
+
+  useEffect(() => {
+    fetch(`/api/topics`)
+      .then((response) => response.json())
+      .then((data) => {
+        dispatch({ type: 'SET_TOPIC_DATA', payload: data });
+      })
+      .catch((e) => console.error('An error has occurred', e));
+  }, []);
+
   return {
     state,
     getSelectedPhotoInfo,
@@ -70,7 +115,8 @@ const useApplicationData = () => {
     toggleModalSelect,
     handleCloseClick,
     handleDisplayModal,
-    toggleFavourite
+    toggleFavourite,
+    getPhotosForTopic
   };
 };
 
