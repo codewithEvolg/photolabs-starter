@@ -8,7 +8,7 @@ import PhotoFavButton from 'components/PhotoFavButton';
 const PhotoDetailsModal = ({modalPhotoInfo, isDisplayModal, toggleModalSelect, handleCloseClick,toggleFavourite, isFavorited}) => {
   
   //retrieve the first photo in the photo array
-  const simPhoto = modalPhotoInfo?.similarPhotos || [];
+  const simPhoto = modalPhotoInfo?.similar_photos || [];
   const similarPhotoArray = simPhoto ? Object.keys(simPhoto).map((key)=>simPhoto[key]) : [];
 
   return (

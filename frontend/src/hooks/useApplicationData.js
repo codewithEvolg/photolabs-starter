@@ -20,9 +20,9 @@ const reducer = (state, action) => {
   case "SET_IS_DISPLAY_MODAL_SET_SELECTED_PHOTO_ID":
     return {...state, isDisplayModal: action.payload1, selectedPhotoId: action.payload2};
   case "SET_PHOTO_DATA":
-    return {...state, photoData: action.payload};
+    return {...state, photos: action.payload};
   case "SET_TOPIC_DATA":
-    return {...state, topicData: action.payload};
+    return {...state, topics: action.payload};
   case "SET_SELECTED_TOPIC":
     return { ...state, selectedTopic: action.payload };
   default:
@@ -79,7 +79,7 @@ const useApplicationData = () => {
 
   useEffect(() => {
     if (state.selectedTopic.length === 0) {
-      fetch(`/api/photos`)
+      fetch(`http://localhost:8001/api/photos`)
         .then((response) => response.json())
         .then((data) => {
           dispatch({ type: 'SET_PHOTO_DATA', payload: data });
@@ -88,7 +88,7 @@ const useApplicationData = () => {
           console.error('An error occurred while fetching photos:', error);
         });
     } else {
-      fetch(`/api/topics/photos/${state.selectedTopic[0]}/`)
+      fetch(`http://localhost:8001/api/topics/photos/${state.selectedTopic[0]}/`)
         .then((response) => response.json())
         .then((data) => {
           dispatch({ type: 'SET_PHOTO_DATA', payload: data });
@@ -100,7 +100,7 @@ const useApplicationData = () => {
   }, [state.selectedTopic]);
 
   useEffect(() => {
-    fetch(`/api/topics`)
+    fetch(`http://localhost:8001/api/topics`)
       .then((response) => response.json())
       .then((data) => {
         dispatch({ type: 'SET_TOPIC_DATA', payload: data });
